@@ -1,0 +1,167 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.IO;
+using System.Security.Cryptography;
+using System.Runtime.InteropServices;
+
+namespace Criptor
+{
+    class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            DirectoryInfo dir = new DirectoryInfo(@"C:\Surse");
+            float z = 0;
+            float p = 0;
+            Console.WriteLine("Scan System..");
+            foreach (var item in dir.GetFiles())
+            {
+                z++;
+            }
+           
+            foreach (var item in dir.GetFiles())
+            {
+                p++;
+                double reslt = 100 / (z / p);
+                double x = reslt;
+                reslt = Math.Round(x, 2);
+                Thread.Sleep(100);
+                //&g37Ujb^8@8G+LB7
+                Console.ForegroundColor = ConsoleColor.White;
+                byte[] key = { 0x26, 0x67, 0x33, 0x37, 0x55, 0x6a, 0x62, 0x5e, 0x38, 0x40, 0x38, 0x47, 0x2b, 0x4c, 0x42, 0x37 };
+                UnicodeEncoding UE = new UnicodeEncoding();
+                byte[] IV = UE.GetBytes(@"Qws12q2Z");
+                try
+                {
+                    string cryptFile = @"C:\Surse\cripted_" + item.Name;
+                    FileStream fsCrypt = new FileStream(cryptFile, FileMode.Create);
+                    RijndaelManaged RMCrypto = new RijndaelManaged();
+                    CryptoStream cs = new CryptoStream(fsCrypt, RMCrypto.CreateEncryptor(key, IV), CryptoStreamMode.Write);
+                    FileStream fsIn = new FileStream(@"C:\Surse\" + item.Name, FileMode.Open);
+                    int data;
+                    while ((data = fsIn.ReadByte()) != -1)
+                        cs.WriteByte((byte)data);
+                    fsIn.Close();
+                    cs.Close();
+                    fsCrypt.Close();
+                   
+                    if (reslt < 10)
+                    {
+                        Console.Clear();
+                        Console.Write("[         ]" + reslt.ToString() + "%");
+                    }
+                    if (reslt >= 10 && reslt < 20)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("█");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("         ]" + reslt.ToString() + "%");
+                    }
+                    if (reslt >= 20 && reslt < 30)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("██");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("        ]" + reslt.ToString() + "%");
+                        
+                    }
+                    if (reslt >= 30 && reslt < 40)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("███");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("       ]" + reslt.ToString() + "%");
+                    }
+                    if (reslt >= 40 && reslt < 50)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("████");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("     ]" + reslt.ToString() + "%");
+                    }
+                    if (reslt >= 50 && reslt < 60)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("█████");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("   ]" + reslt.ToString() + "%");
+                    }
+                    // █
+                    if (reslt >= 60 && reslt < 70)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("█████");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("  ]" + reslt.ToString() + "%");
+                    }
+                    if (reslt >= 70 && reslt < 80)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("██████");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(" ]" + reslt.ToString() + "%");
+                    }
+                    if (reslt >= 80 && reslt < 90)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("███████");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(" ]" + reslt.ToString() + "%");
+                    }
+                    if (reslt >= 90 && reslt < 100)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("████████");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("]" + reslt.ToString() + "%");
+                    }
+                    if (reslt == 100)
+                    {
+                        Console.Clear();
+                        Console.Write("[");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("█████████");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("]" + reslt.ToString() + "%");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("\nSuccessful!");
+                    }
+
+
+
+                }
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error");
+                   
+                    
+                }
+            }
+            Console.ReadKey();
+        }
+    }
+}
+
